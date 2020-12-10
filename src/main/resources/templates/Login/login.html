@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Gestão de projeto de pesquisa - Login</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/login.css" />
+</head>
+<body class="h-100 Login-Form container">
+	<div class="main-div">
+		<div class="texto-header">
+			<img src="/img/IFTMLogin.png" width="100" height="60"
+				class="d-inline-block align-top" alt="IFTMLogin">
+			<p>Por favor insira suas credenciais para acessar o sistema</p>
+		</div>
+		<form method="post" action="/login" th:object="${projeto}">
+
+			<div class="alert alert-danger" role="alert" th:if="${msg}">
+				<strong th:text="${msg}"></strong>
+			</div>
+
+			<div class="form-group">
+				<input class="form-control" th:field="*{user}" type="text"
+					placeholder="username">
+			</div>
+			<div class="form-group">
+				<input class="form-control" th:field="*{senha}" type="password"
+					placeholder="Insira sua senha">
+			</div>
+			<div class="cadastro">
+				<a th:href="@{cadastro}">Não tem cadastro? Clique aqui.</a>
+			</div>
+			<button type="submit" class="btn btn-primary">Logar</button>
+		</form>
+	</div>
+</body>
+</html>

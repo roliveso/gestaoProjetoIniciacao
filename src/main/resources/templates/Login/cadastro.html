@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Cadastro de Projeto</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+</head>
+<body>
+	<nav class="navbar navbar-light bg-success">
+		<a class="navbar-brand" href="#"> <img
+			src="/img/logotipo-virtualif.svg" width="30" height="30"
+			class="d-inline-block align-top" alt="IFTM"> IFTM
+		</a>
+	</nav>
+	<form method="post" th:object="${projeto}" action="cadastrarProjeto">
+		<div class="card">
+			<h5 class="card-header">Dados do Aluno</h5>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="User" class="col-sm-2 col-form-label">Usuario</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" th:field="*{user}"
+									id="User">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="senhaAluno" class="col-sm-2 col-form-label">Senha</label>
+							<div class="col-sm-6">
+								<input type="password" class="form-control" th:field="*{senha}"
+									id="senhaAluno">
+							</div>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="customControlValidation1" th:field="*{modalidade}"
+								value="bolsista" required> <label
+								class="custom-control-label" for="customControlValidation1">Aluno
+								bolsista</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="customControlValidation2" th:field="*{modalidade}"
+								value="voluntario" required> <label
+								class="custom-control-label" for="customControlValidation2">Aluno
+								voluntário</label>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="nomeAluno" class="col-sm-2 col-form-label">Nome</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="nomeAluno"
+									th:field="*{nome}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="emailAluno" class="col-sm-2 col-form-label">Email</label>
+							<div class="col-sm-6">
+								<input type="email" class="form-control" id="emailAluno"
+									th:field="*{email}">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="nomeCurso" class="col-sm-2 col-form-label">Curso</label>
+							<div class="col-sm-6">
+								<input type="text" class="form-control" id="nomeCurso"
+									th:field="*{curso}">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<h5 class="card-header">Dados do Projeto</h5>
+			<div class="col-md-6">
+				<div class="card-body">
+					<div class="form-group row">
+						<label for="tituloProjeto" class="col-sm-2 col-form-label">Título</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="tituloProjeto"
+								th:field="*{titulo}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="editalProjeto" class="col-sm-2 col-form-label">Edital</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="editalProjeto"
+								th:field="*{edital}">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="orientadorProjeto" class="col-sm-2 col-form-label">Orientador</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" id="orientadorProjeto"
+								th:field="*{orientador}">
+						</div>
+					</div>
+					<button type="submit" class="btn btn-primary">Cadastrar</button>
+					<button type="button" class="btn btn-primary" th:href="@{login}">Voltar</button>
+				</div>
+			</div>
+		</div>
+	</form>
+	<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>

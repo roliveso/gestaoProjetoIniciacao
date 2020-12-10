@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.Login-Form {
+	height: 100%;
+	background-color: #43a047;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.Login-Form {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	text-align: center;
+}
+
+.main-div {
+	background: #fff;
+	border-radius: 5px;
+	margin: 0 auto;
+	max-width: 50%;
+	padding: 50px 70px;
+}
+
+.form-control {
+	background: #f7f7f7;
+	border-radius: 7px;
+	font-size: 15px;
+	height: 50px;
+	line-height: 50px;
+	border: 2px solid #d4d4d4;
+}
+
+.form-group {
+	margin: 10px;
+}
+
+.cadastro{
+	padding-bottom: 10px;
+}
+
+.btn.btn-primary {
+  background: #43a047 none repeat scroll 0 0;
+  border-color: #43a047;
+  color: #ffffff;
+  font-size: 1em;
+  width: 70%;
+  height: 50px;
+  font-family: 'Open Sans';
+  font-weight: normal;
+  line-height: 50px;
+  padding: 0;
+}
