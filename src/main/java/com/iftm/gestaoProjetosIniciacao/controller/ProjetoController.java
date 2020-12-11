@@ -15,25 +15,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iftm.gestaoProjetosIniciacao.exceptions.ExceptionService;
 import com.iftm.gestaoProjetosIniciacao.model.Projeto;
 import com.iftm.gestaoProjetosIniciacao.model.Relatorio;
-import com.iftm.gestaoProjetosIniciacao.repository.ProjetoDAO;
 import com.iftm.gestaoProjetosIniciacao.service.ServiceProjeto;
+import com.iftm.gestaoProjetosIniciacao.service.ServiceRelatorio;
 import com.iftm.gestaoProjetosIniciacao.util.Util;
 
 @Controller
 public class ProjetoController {
 
 	@Autowired
-	ProjetoDAO projetoDAO;
-
-	@Autowired
 	ServiceProjeto serviceProjeto;
-
-	@GetMapping("/teste")
-	public ModelAndView teste() {
-		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/NewFile");
-		return mv;
-	}
+	
+	@Autowired
+	ServiceRelatorio serviceRelatorio;
 
 	@GetMapping
 	public ModelAndView login() {
@@ -54,8 +47,9 @@ public class ProjetoController {
 	@GetMapping("/preencher-relatorio")
 	public ModelAndView finalizaRelatorio() {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/FinalizarRelatorio");
+		mv.setViewName("/preencher-relatorio");
 		mv.addObject("projeto", new Projeto());
+		mv.addObject("entrada", new Relatorio());
 		return mv;
 	}
 
@@ -86,7 +80,7 @@ public class ProjetoController {
 			return mv;
 		} else {
 			session.setAttribute("usuarioLogado", projetoLogin);
-			mv.setViewName("redirect:preencherRelatorio");
+			mv.setViewName("redirect:preencher-relatorio");
 			return mv;
 		}
 	}
@@ -97,14 +91,13 @@ public class ProjetoController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("projeto", new Projeto());
 		mv.setViewName("Login/preencher-relatorio");
-		Relatorio saida = serviceProjeto.loginProjeto(entrada.getUser(),
-				Util.md5(entrada.getSenha()));
+		entrada.setProjeto((Projeto) session.getAttribute("usuarioLogado"));
+		Relatorio saida = serviceRelatorio.salvar(entrada);
 		if (saida == null) {
-			mv.addObject("msg", "Usuário não encontrado. Tente novamente");
+			mv.addObject("msg", "Erro ao salvar o relatório");
 			return mv;
 		} else {
-			session.setAttribute("usuarioLogado", saida);
-			mv.setViewName("redirect:preencherRelatorio");
+			session.setAttribute("relatorio", saida);
 			return mv;
 		}
 	}

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Preencher relatorio</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="w-100">
+	<script type="text/javascript">
+		var today = new Date();
+		var lastDayOfMonth = 32 - new Date(today.getFullYear(), today
+				.getMonth(), 32).getDate();
+		var periodo = `Período: 01/${today.getMonth() + 1}/${today.getFullYear()} à ${lastDayOfMonth}/${today.getMonth() + 1}/${today.getFullYear()}`;
+	</script>
+	<nav class="navbar navbar-light bg-success">
+		<a class="navbar-brand p-2" href="#"> <img
+			src="/img/logotipo-virtualif.svg" width="30" height="30"
+			class="d-inline-block align-top" alt="IFTM"> IFTM
+		</a>
+	</nav>
+	<form method="post" action="preencher-relatorio" th:object="${entrada}">
+		<div class="w-100">
+			<div class="card m-4">
+				<h5 class="card-header">Dados do Aluno</h5>
+				<div class="row">
+					<div class="col-6">
+						<div class="card-body">
+							<div class="form-group row d-flex">
+								<label for="nomeAluno" class="col-2">Nome</label> <input
+									class="form-control col-10"
+									th:value="${session.usuarioLogado.nome}" type="text"
+									id="nomeAluno" readonly>
+							</div>
+							<div class="form-group row">
+								<label for="nomeCurso" class="col-2 col-form-label">Curso</label>
+								<input class="form-control col-10"
+									th:value="${session.usuarioLogado.curso}" type="text"
+									id="nomeCurso" readonly>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 d-flex flex-row">
+						<div class="card border m-3">
+							<div class="card-header">PERÍODO DE ATIVIDADES</div>
+							<span class="p-3"> <script type="text/javascript">
+								document.write(periodo)
+							</script>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="dropdown-divider ml-3 mr-3"></div>
+				<div class="row">
+					<div class="col-6">
+						<div class="card-body">
+							<div class="custom-control custom-radio">
+								<input type="radio" class="custom-control-input"
+									id="customControlValidation2" name="radio-stacked" required>
+								<label class="custom-control-label"
+									for="customControlValidation2">Aluno bolsista</label>
+							</div>
+							<div class="custom-control custom-radio mb-2">
+								<input type="radio" class="custom-control-input"
+									id="customControlValidation3" name="radio-stacked" required>
+								<label class="custom-control-label"
+									for="customControlValidation3">Aluno voluntário</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Dados do Projeto</h5>
+			<div class="col-md-6">
+				<div class="card-body">
+					<div class="form-group row">
+						<label for="tituloProjeto" class="col-sm-3 col-form-label">Título</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.titulo}" type="text"
+								id="tituloProjeto" readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="editalProjeto" class="col-sm-3 col-form-label">Edital</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.edital}" type="text"
+								id="editalProjeto" readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="orientadorProjeto" class="col-sm-3 col-form-label">Orientador</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.orientador}" type="text"
+								id="orientadorProjeto" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Situação Atual do Projeto</h5>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card-body">
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="sitAtualProjeto1" name="sitAtualProjeto" 
+								th:field="*{situacaoProjeto}" value="como_previsto" required> <label
+								class="custom-control-label" for="sitAtualProjeto1"
+								>Como
+								previsto</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								th:field="*{situacaoProjeto}" value="adiantado"
+								id="sitAtualProjeto2" name="sitAtualProjeto" required> <label
+								class="custom-control-label" for="sitAtualProjeto2"
+								>Adiantado</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="sitAtualProjeto3" name="sitAtualProjeto"
+								th:field="*{situacaoProjeto}" value="atrasado" required> <label
+								class="custom-control-label" for="sitAtualProjeto3"
+								>Atrasado</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="sitAtualProjeto4" name="sitAtualProjeto"
+								th:field="*{situacaoProjeto}" value="nao_iniciado" required> <label
+								class="custom-control-label" for="sitAtualProjeto4"
+								>Não
+								iniciado</label>
+						</div>
+						<div class="custom-control custom-radio">
+							<input type="radio" class="custom-control-input"
+								id="sitAtualProjeto5" name="sitAtualProjeto" 
+								th:field="*{situacaoProjeto}" value="concluido" required> <label
+								class="custom-control-label" for="sitAtualProjeto5"
+								>Concluído</label>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<label for="textareaJustificativa">Justificativa</label>
+					<textarea class="form-control" id="textareaJustificativa"
+						th:field="*{situacaoProjetoJustificativa}" rows="3"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Avaliação do Orientador Sobre o Aluno</h5>
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card-body">
+						<div class="form-group row d-flex">
+							<label class="col-9" for="cumprimentoCarga">1 -
+								Cumprimento de Carga Horária: 20 horas semanais</label> <select
+								th:field="*{cumprimentoCargaHoraria}"
+								class="custom-select col-3" id="cumprimentoCarga">
+								<option selected value=null>Selecione</option>
+								<option value="1">Ruim</option>
+								<option value="2">Regular</option>
+								<option value="3">Bom</option>
+								<option value="4">Ótimo</option>
+							</select>
+						</div>
+						<div class="form-group row d-flex">
+							<label class="col-9" for="interesseAtividades">3 -
+								Interesse nas atividades de pesquisa</label> <select
+								th:field="*{interesseAtividades}" class="custom-select col-3"
+								id="interesseAtividades">
+								<option selected value=null>Selecione</option>
+								<option value="1">Ruim</option>
+								<option value="2">Regular</option>
+								<option value="3">Bom</option>
+								<option value="4">Ótimo</option>
+							</select>
+						</div>
+						<div class="form-group row d-flex">
+							<label for="skillsDev" class="col-9">2 - Habilidades
+								desenvolvidas: (autonomia, espírito crítico, criatividade, etc)</label>
+							<select class="custom-select col-3" id="skillsDev"
+								th:field="*{habilidadesDesenvolvidas}">
+								<option selected value=null>Selecione</option>
+								<option value="1">Ruim</option>
+								<option value="2">Regular</option>
+								<option value="3">Bom</option>
+								<option value="4">Ótimo</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="card-body">
+					<label for="textareaJustificativa">Outras informações</label>
+					<textarea class="form-control" id="textareaOutrasInfos"
+						th:field="*{outrasInformacoes}" rows="3"></textarea>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Resumo das atividades desenvolvidas no
+				mês</h5>
+			<div class="card-body">
+				<textarea class="form-control" id="textareaResumoAtividades"
+					th:field="*{resumoAtividades}" placeholder="Descreva seu resumo:"
+					rows="3"></textarea>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Comentários e dificuldades do aluno
+				sobre a proposta</h5>
+			<div class="card-body">
+				<textarea class="form-control" id="textareaComentariosDificuldades"
+					th:field="*{comentarios}"
+					placeholder="Descreva seu comentario:" rows="3"></textarea>
+			</div>
+		</div>
+		<div class="border m-4 p-3 rounded d-flex">
+			<div class="row ml-0 w-100 d-flex justify-content-between">
+				<button type="submit" class="btn btn-outline-success pl-5 pr-5">
+					Salvar</button>
+				<button type="button" class="btn btn-outline-info pl-5 pr-5">
+					Visualizar</button>
+				<button type="button" class="btn btn-outline-danger pl-5 pr-5">
+					Sair</button>
+			</div>
+		</div>
+	</form>
+</body>
+</html>

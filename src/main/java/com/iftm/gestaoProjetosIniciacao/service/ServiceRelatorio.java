@@ -12,7 +12,7 @@ public class ServiceRelatorio {
 	@Autowired
 	private RelatorioDAO relatorioDAO;
 
-	public Relatorio salvarProjeto(final Relatorio projeto) throws Exception {
+	public Relatorio salvar(final Relatorio projeto) {
 		return relatorioDAO.save(projeto);
 	}
 }
