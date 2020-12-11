@@ -1,9 +1,12 @@
 package com.iftm.gestaoProjetosIniciacao.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 
@@ -24,6 +27,9 @@ public class Projeto {
 	private String edital;
 	private String orientador;
 	private String modalidade;
+	
+	@OneToMany(mappedBy="projeto")
+	private List<Relatorio> relatorios;
 
 	public Long getId() {
 		return id;
@@ -104,4 +110,14 @@ public class Projeto {
 	public void setModalidade(String modalidade) {
 		this.modalidade = modalidade;
 	}
+
+	public List<Relatorio> getRelatorios() {
+		return relatorios;
+	}
+
+	public void setRelatorios(List<Relatorio> relatorios) {
+		this.relatorios = relatorios;
+	}
+	
+
 }

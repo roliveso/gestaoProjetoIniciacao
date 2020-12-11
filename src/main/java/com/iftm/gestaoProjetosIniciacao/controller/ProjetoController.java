@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.iftm.gestaoProjetosIniciacao.exceptions.ExceptionService;
 import com.iftm.gestaoProjetosIniciacao.model.Projeto;
+import com.iftm.gestaoProjetosIniciacao.model.Relatorio;
 import com.iftm.gestaoProjetosIniciacao.repository.ProjetoDAO;
 import com.iftm.gestaoProjetosIniciacao.service.ServiceProjeto;
 import com.iftm.gestaoProjetosIniciacao.util.Util;
@@ -34,7 +35,7 @@ public class ProjetoController {
 		return mv;
 	}
 
-	@GetMapping("/login")
+	@GetMapping
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("Login/login");
@@ -50,7 +51,7 @@ public class ProjetoController {
 		return mv;
 	}
 
-	@GetMapping("/preencherRelatorio")
+	@GetMapping("/preencher-relatorio")
 	public ModelAndView finalizaRelatorio() {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/FinalizarRelatorio");
@@ -64,11 +65,11 @@ public class ProjetoController {
 		return login();
 	}
 
-	@PostMapping("cadastrarProjeto")
+	@PostMapping("cadastrar-projeto")
 	public ModelAndView cadastrarProjeto(Projeto projeto) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		serviceProjeto.salvarProjeto(projeto);
-		mv.setViewName("redirect:login");
+		mv.setViewName("redirect:/");
 		return mv;
 	}
 
@@ -77,15 +78,34 @@ public class ProjetoController {
 			throws NoSuchAlgorithmException, ExceptionService {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("projeto", new Projeto());
-		mv.setViewName("Login/login");
+		mv.setViewName("Login/preencher-relatorio");
 		Projeto projetoLogin = serviceProjeto.loginProjeto(usuarioProjeto.getUser(),
 				Util.md5(usuarioProjeto.getSenha()));
 		if (projetoLogin == null) {
 			mv.addObject("msg", "Usuário não encontrado. Tente novamente");
+			return mv;
 		} else {
 			session.setAttribute("usuarioLogado", projetoLogin);
-			return finalizaRelatorio();
+			mv.setViewName("redirect:preencherRelatorio");
+			return mv;
 		}
-		return mv;
+	}
+	
+	@PostMapping("/preencher-relatorio")
+	public ModelAndView preencherRelatorio(@Valid Relatorio entrada, BindingResult br, HttpSession session)
+			throws NoSuchAlgorithmException, ExceptionService {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("projeto", new Projeto());
+		mv.setViewName("Login/preencher-relatorio");
+		Relatorio saida = serviceProjeto.loginProjeto(entrada.getUser(),
+				Util.md5(entrada.getSenha()));
+		if (saida == null) {
+			mv.addObject("msg", "Usuário não encontrado. Tente novamente");
+			return mv;
+		} else {
+			session.setAttribute("usuarioLogado", saida);
+			mv.setViewName("redirect:preencherRelatorio");
+			return mv;
+		}
 	}
 }
