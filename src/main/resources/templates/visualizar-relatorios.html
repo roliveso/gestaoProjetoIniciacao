@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Visualizar relatorio</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+</head>
+<body class="w-100">
+	<script type="text/javascript">
+		var today = new Date();
+		var lastDayOfMonth = 32 - new Date(today.getFullYear(), today
+				.getMonth(), 32).getDate();
+		var periodo = `Período: 01/${today.getMonth() + 1}/${today.getFullYear()} à ${lastDayOfMonth}/${today.getMonth() + 1}/${today.getFullYear()}`;
+	</script>
+	<nav class="navbar navbar-light bg-success">
+		<a class="navbar-brand p-2" href="#"> <img
+			src="/img/logotipo-virtualif.svg" width="30" height="30"
+			class="d-inline-block align-top" alt="IFTM"> IFTM
+		</a>
+	</nav>
+	<form method="get" action="" th:object="${visuRelatorios}">
+		<div class="w-100">
+			<div class="card m-4">
+				<h5 class="card-header">Dados do Aluno</h5>
+				<div class="row">
+					<div class="col-6">
+						<div class="card-body">
+							<div class="form-group row d-flex">
+								<label for="nomeAluno" class="col-2">Nome</label> <input
+									class="form-control col-10"
+									th:value="${session.usuarioLogado.nome}" type="text" id="nomeAluno"
+									readonly>
+							</div>
+							<div class="form-group row">
+								<label for="nomeCurso" class="col-2 col-form-label">Curso</label>
+								<input class="form-control col-10"
+									th:value="${session.usuarioLogado.curso}" type="text"
+									id="nomeCurso" readonly>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 d-flex flex-row">
+						<div class="card border m-3">
+							<div class="card-header">PERÍODO DE ATIVIDADES</div>
+							<span class="p-3"> <script type="text/javascript">
+								document.write(periodo)
+							</script>
+							</span>
+						</div>
+					</div>
+				</div>
+				<div class="dropdown-divider ml-3 mr-3"></div>
+				<div class="row">
+					<div class="col-6">
+						<div class="card-body">
+							<div class="custom-control custom-radio">
+								<input type="radio" class="custom-control-input"
+									id="customControlValidation2" name="radio-stacked" required>
+								<label class="custom-control-label"
+									for="customControlValidation2">Aluno bolsista</label>
+							</div>
+							<div class="custom-control custom-radio mb-2">
+								<input type="radio" class="custom-control-input"
+									id="customControlValidation3" name="radio-stacked" required>
+								<label class="custom-control-label"
+									for="customControlValidation3">Aluno voluntário</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<h5 class="card-header">Dados do Projeto</h5>
+			<div class="col-md-6">
+				<div class="card-body">
+					<div class="form-group row">
+						<label for="tituloProjeto" class="col-sm-3 col-form-label">Título</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.titulo}" type="text"
+								id="tituloProjeto" readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="editalProjeto" class="col-sm-3 col-form-label">Edital</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.edital}" type="text"
+								id="editalProjeto" readonly>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label for="orientadorProjeto" class="col-sm-3 col-form-label">Orientador</label>
+						<div class="col-sm-6">
+							<input class="form-control"
+								th:value="${session.usuarioLogado.orientador}" type="text"
+								id="orientadorProjeto" readonly>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card m-4">
+			<table class="table table-border-bordered table-hover">
+				<thead>
+					<th scope="col">Identificador</th>
+					<th scope="col">Periodo da atividade</th>
+				</thead>
+				<tbody>
+					<tr scope="row">
+						<td>Teste</td>
+						<td>Teste</td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><a class="btn btn-primary"> <i class="fas fa-edit"></i>Editar
+						</a> <a class="btn btn-primary"> <i class="fas fa-edit"></i>Excluir
+						</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</form>
+</body>

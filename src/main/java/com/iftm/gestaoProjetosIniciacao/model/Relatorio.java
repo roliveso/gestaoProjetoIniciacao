@@ -113,7 +113,4 @@ public class Relatorio {
 	public void setComentarios(String comentarios) {
 		this.comentarios = comentarios;
 	}
-	
-	
-	
 }

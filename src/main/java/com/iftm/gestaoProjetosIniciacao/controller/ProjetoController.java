@@ -27,7 +27,7 @@ public class ProjetoController {
 	
 	@Autowired
 	ServiceRelatorio serviceRelatorio;
-
+	
 	@GetMapping
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
@@ -52,6 +52,14 @@ public class ProjetoController {
 		mv.addObject("entrada", new Relatorio());
 		return mv;
 	}
+	
+	@GetMapping("/visualizar-relatorio")
+	public ModelAndView visualizarRelatorio() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/visualizar-relatorios");
+		//mv.addObject("relatoriosList", )
+		return mv;
+	}
 
 	@GetMapping("/logout")
 	public ModelAndView logout(HttpSession session) {
@@ -72,11 +80,11 @@ public class ProjetoController {
 			throws NoSuchAlgorithmException, ExceptionService {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("projeto", new Projeto());
-		mv.setViewName("Login/preencher-relatorio");
 		Projeto projetoLogin = serviceProjeto.loginProjeto(usuarioProjeto.getUser(),
 				Util.md5(usuarioProjeto.getSenha()));
 		if (projetoLogin == null) {
 			mv.addObject("msg", "Usuário não encontrado. Tente novamente");
+			mv.setViewName("Login/login");
 			return mv;
 		} else {
 			session.setAttribute("usuarioLogado", projetoLogin);
@@ -98,6 +106,7 @@ public class ProjetoController {
 			return mv;
 		} else {
 			session.setAttribute("relatorio", saida);
+			mv.setViewName("redirect:visualizar-relatorio");
 			return mv;
 		}
 	}
