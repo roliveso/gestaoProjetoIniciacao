@@ -111,12 +111,11 @@
 					<th scope="col">Periodo da atividade</th>
 				</thead>
 				<tbody>
-					<tr scope="row">
-						<td>Teste</td>
-						<td>Teste</td>
-						<td></td>
-						<td></td>
-						<td></td>
+					<tr scope="row" th:each="relatorio : ${relatorios}">
+						<td th:text="${relatorio.id}"></td>
+						<td th:text="${relatorio.situacaoProjeto}"></td>
+						<td th:text="${relatorio.situacaoProjetoJustificativa}"></td>
+						<td th:text="${relatorio.habilidadesDesenvolvidas}"></td>
 						<td><a class="btn btn-primary"> <i class="fas fa-edit"></i>Editar
 						</a> <a class="btn btn-primary"> <i class="fas fa-edit"></i>Excluir
 						</a></td>

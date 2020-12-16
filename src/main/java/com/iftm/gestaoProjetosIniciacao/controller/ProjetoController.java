@@ -1,6 +1,7 @@
 package com.iftm.gestaoProjetosIniciacao.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -15,12 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.iftm.gestaoProjetosIniciacao.exceptions.ExceptionService;
 import com.iftm.gestaoProjetosIniciacao.model.Projeto;
 import com.iftm.gestaoProjetosIniciacao.model.Relatorio;
+import com.iftm.gestaoProjetosIniciacao.repository.RelatorioDAO;
 import com.iftm.gestaoProjetosIniciacao.service.ServiceProjeto;
 import com.iftm.gestaoProjetosIniciacao.service.ServiceRelatorio;
 import com.iftm.gestaoProjetosIniciacao.util.Util;
 
 @Controller
 public class ProjetoController {
+	
+	@Autowired
+	private RelatorioDAO relatorioDAO;
 
 	@Autowired
 	ServiceProjeto serviceProjeto;
@@ -50,14 +55,18 @@ public class ProjetoController {
 		mv.setViewName("/preencher-relatorio");
 		mv.addObject("projeto", new Projeto());
 		mv.addObject("entrada", new Relatorio());
+		
 		return mv;
 	}
 	
 	@GetMapping("/visualizar-relatorio")
-	public ModelAndView visualizarRelatorio() {
+	public ModelAndView visualizarRelatorio(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
+		List<Relatorio> listRelatorio;
+		Projeto projeto = ((Projeto) session.getAttribute("usuarioLogado"));
+		listRelatorio = relatorioDAO.findAllByIdProjeto(projeto.getId());
+		mv.addObject("relatorios", listRelatorio);
 		mv.setViewName("/visualizar-relatorios");
-		//mv.addObject("relatoriosList", )
 		return mv;
 	}
 
