@@ -116,7 +116,7 @@
 						<td th:text="${relatorio.situacaoProjeto}"></td>
 						<td th:text="${relatorio.situacaoProjetoJustificativa}"></td>
 						<td th:text="${relatorio.habilidadesDesenvolvidas}"></td>
-						<td><a class="btn btn-primary"> <i class="fas fa-edit"></i>Editar
+						<td><a class="btn btn-primary" th:href="@{editar-relatorio/{id}(id=${relatorio.id})}"> <i class="fas fa-edit"></i>Editar
 						</a> <a class="btn btn-primary"> <i class="fas fa-edit"></i>Excluir
 						</a></td>
 					</tr>

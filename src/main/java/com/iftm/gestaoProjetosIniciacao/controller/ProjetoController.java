@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,16 +24,16 @@ import com.iftm.gestaoProjetosIniciacao.util.Util;
 
 @Controller
 public class ProjetoController {
-	
+
 	@Autowired
 	private RelatorioDAO relatorioDAO;
 
 	@Autowired
 	ServiceProjeto serviceProjeto;
-	
+
 	@Autowired
 	ServiceRelatorio serviceRelatorio;
-	
+
 	@GetMapping
 	public ModelAndView login() {
 		ModelAndView mv = new ModelAndView();
@@ -55,10 +56,10 @@ public class ProjetoController {
 		mv.setViewName("/preencher-relatorio");
 		mv.addObject("projeto", new Projeto());
 		mv.addObject("entrada", new Relatorio());
-		
+
 		return mv;
 	}
-	
+
 	@GetMapping("/visualizar-relatorio")
 	public ModelAndView visualizarRelatorio(HttpSession session) {
 		ModelAndView mv = new ModelAndView();
@@ -67,6 +68,16 @@ public class ProjetoController {
 		listRelatorio = relatorioDAO.findAllByIdProjeto(projeto.getId());
 		mv.addObject("relatorios", listRelatorio);
 		mv.setViewName("/visualizar-relatorios");
+		return mv;
+	}
+
+	@GetMapping("/editar-relatorio/{id}")
+	public ModelAndView editarRelatorio(@PathVariable("id") Long id) {
+		ModelAndView mv = new ModelAndView();
+		Relatorio relatorio = relatorioDAO.findById(id).get();
+		System.out.println(relatorio.getComentarios());
+		mv.addObject("relatorio", relatorio);
+		mv.setViewName("/editar-relatorio");
 		return mv;
 	}
 
@@ -101,7 +112,7 @@ public class ProjetoController {
 			return mv;
 		}
 	}
-	
+
 	@PostMapping("/preencher-relatorio")
 	public ModelAndView preencherRelatorio(@Valid Relatorio entrada, BindingResult br, HttpSession session)
 			throws NoSuchAlgorithmException, ExceptionService {
