@@ -1,0 +1,26 @@
+.tituloTabela{
+	background: #d9d9d9;
+}
+
+#textPrazoEntrega{
+	font-family:Arial,sans-serif;
+	font-weight: bold;
+	margin-top:40px;
+	text-align:center;
+}
+
+#textTitulo{
+	font-family:Arial,sans-serif;
+	font-weight: bold;
+	text-align: center;
+}
+
+.mainTitulo{
+	margin-top:80px;
+}
+
+
+
+/*div{
+	border: 1px solid;
+}*/

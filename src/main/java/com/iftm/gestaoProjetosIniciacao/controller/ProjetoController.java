@@ -42,7 +42,14 @@ public class ProjetoController {
 		return mv;
 	}
 
-	@GetMapping("/cadastro")
+	@GetMapping("/imprimir-relatorio")
+	public ModelAndView imprimirRelatorio() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/relatorio-mensal-imprimir");
+		return mv;
+	}
+
+	@GetMapping("/cadastro-projeto")
 	public ModelAndView cadastrarProjeto() {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("projeto", new Projeto());
@@ -56,7 +63,6 @@ public class ProjetoController {
 		mv.setViewName("/preencher-relatorio");
 		mv.addObject("projeto", new Projeto());
 		mv.addObject("entrada", new Relatorio());
-
 		return mv;
 	}
 
@@ -75,7 +81,6 @@ public class ProjetoController {
 	public ModelAndView editarRelatorio(@PathVariable("id") Long id) {
 		ModelAndView mv = new ModelAndView();
 		Relatorio relatorio = relatorioDAO.findById(id).get();
-		System.out.println(relatorio.getComentarios());
 		mv.addObject("relatorio", relatorio);
 		mv.setViewName("/editar-relatorio");
 		return mv;
@@ -87,7 +92,18 @@ public class ProjetoController {
 		return login();
 	}
 
-	@PostMapping("cadastrar-projeto")
+	@PostMapping("/editar-relatorio")
+	public ModelAndView editarRelatorio(@Valid Relatorio relatorio, HttpSession session)
+			throws NoSuchAlgorithmException, ExceptionService {
+		ModelAndView mv = new ModelAndView();
+		relatorio.setProjeto((Projeto) session.getAttribute("usuarioLogado"));
+		serviceRelatorio.salvar(relatorio);
+		// relatorioDAO.save(relatorio);
+		mv.setViewName("redirect:/visualizar-relatorio");
+		return mv;
+	}
+
+	@PostMapping("/cadastro-projeto")
 	public ModelAndView cadastrarProjeto(Projeto projeto) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		serviceProjeto.salvarProjeto(projeto);
